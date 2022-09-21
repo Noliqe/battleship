@@ -1,3 +1,4 @@
+/* eslint-disable for-direction */
 /* eslint-disable no-plusplus */
 // import './style.css';
 
@@ -116,17 +117,47 @@ const gameboard = () => {
   };
 };
 
-const player = (data, enemy) => {
-  data = gameboard();
+const player = () => {
+  const playerOne = gameboard();
+  playerOne.placeShip('submarine');
+  playerOne.placeShip('carrier');
+  playerOne.placeShip('battleship');
+  playerOne.placeShip('patrol-boat');
+  playerOne.placeShip('destroyer');
+  const computerOne = gameboard();
+  computerOne.placeShip('submarine');
+  computerOne.placeShip('carrier');
+  computerOne.placeShip('battleship');
+  computerOne.placeShip('patrol-boat');
+  computerOne.placeShip('destroyer');
 
-  const hitEnemy = (coords, num) => {
-    enemy.gameboard.receiveAttack(coords, num);
+  const hitComputer = (coords, num) => {
+    computerOne.receiveAttack(coords, num);
+  };
+
+  const hitPlayer = () => {
+    const x = Math.floor(Math.random() * (101));
+    for (let i = x; i < 100; i++) {
+      if (playerOne.gameArray[x] !== 'x') {
+        playerOne.receiveAttack(playerOne.gameArray[x], x);
+      }
+    }
+    for (let i = x; i >= 0; i--) {
+      if (x === 0) {
+        return (0);
+      }
+      if (playerOne.gameArray[x] !== 'x') {
+        playerOne.receiveAttack(playerOne.gameArray[x], x);
+      }
+    }
   };
 
   return {
-    data,
-    hitEnemy,
+    playerOne,
+    computerOne,
+    hitComputer,
+    hitPlayer,
   };
 };
 
-module.exports = { ship, gameboard };
+module.exports = { ship, gameboard, player };

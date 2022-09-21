@@ -1,5 +1,5 @@
 /* eslint-disable */
-import {ship, gameboard} from './index';
+import {ship, gameboard, player} from './index';
 
 test('hit', () => {
   const carrier = ship('carrier', 5, '', false, []);
@@ -84,4 +84,16 @@ test('gameOver', () => {
   player.receiveAttack(player.gameArray[60], 60);
   player.receiveAttack(player.gameArray[70], 70);
   expect(player.gameOver()).toBe(true);
+});
+
+test('hit-computer', () => {
+  const playerO = player();
+  playerO.hitComputer(playerO.computerOne.gameArray[2],2)
+  expect(playerO.computerOne.carrier.object.damaged).toBe('2');
+});
+
+test('hit-player', () => {
+  const computer0 = player();
+  computer0.hitPlayer()
+  expect(computer0.hitPlayer()).toBe(2);
 });
