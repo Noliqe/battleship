@@ -1,0 +1,41 @@
+html {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    background-color: lightblue;
+}
+
+.header {
+    width: 100vw;
+    height: 100px;
+    background-color: lightpink;
+}
+
+.gridContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.gridBoard1, .gridBoard2 {
+    display: grid;
+    border: 2px solid black;
+    height: 500px;
+    width: 500px;
+    grid-template-columns: repeat(10, 50px);
+    grid-template-rows: repeat(10, 50px);
+}
+
+.gridBoard1 > * {
+    border: 1px solid gray;
+}
+
+.gridBoard2 > * {
+    border: 1px solid gray;
+}
