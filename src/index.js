@@ -49,7 +49,6 @@ const gameboard = () => {
       square.setAttribute('id', x);
       square.addEventListener('click', () => {
         if (num === 2) {
-          console.log(gameArray[i]);
           // eslint-disable-next-line no-use-before-define
           newPlayer.hitComputer(gameArray[i], i, 2);
           square.style.pointerEvents = 'none';
@@ -113,6 +112,20 @@ const gameboard = () => {
       }
     }
   };
+
+  // *
+  const gameOver = () => {
+    const winner = document.querySelector('.winner');
+    const a = carrier.object.sunk;
+    const b = battleship.object.sunk;
+    const c = destroyer.object.sunk;
+    const d = submarine.object.sunk;
+    const e = patrolBoat.object.sunk;
+    if (a === true && b === true && c === true && d === true && e === true) {
+      winner.textContent = 'you lost';
+    }
+  };
+
   // when receiving attack, check wether hit or not
   const receiveAttack = (coords, num, x) => {
     const tile = document.getElementById(`square${num}-board${x}`);
@@ -141,19 +154,7 @@ const gameboard = () => {
       gameArray[num] = 'x';
       tile.style.background = 'brown';
     }
-  };
-
-  // *
-  const gameOver = () => {
-    const a = carrier.object.sunk;
-    const b = battleship.object.sunk;
-    const c = destroyer.object.sunk;
-    const d = submarine.object.sunk;
-    const e = patrolBoat.object.sunk;
-    if (a === true && b === true && c === true && d === true && e === true) {
-      return (true);
-    }
-    return (false);
+    gameOver();
   };
 
   return {
@@ -190,27 +191,27 @@ const player = () => {
     computerOne.placeShip('destroyer');
   };
 
+  let turn = 1;
+
+  const computerArray = [];
+  for (let i = 0; i < 100; i++) {
+    computerArray.push(i);
+  }
+
   const hitPlayer = () => {
-    const x = Math.floor(Math.random() * (101));
-    for (let i = x; i < 100; i++) {
-      if (playerOne.gameArray[x] !== 'x' && playerOne.gameArray[x] !== 'O') {
-        playerOne.receiveAttack(playerOne.gameArray[x], x, 1);
-        return;
-      }
-    }
-    for (let i = x; i > -1; i--) {
-      if (playerOne.gameArray[x] !== 'x' && playerOne.gameArray[x] !== 'O') {
-        playerOne.receiveAttack(playerOne.gameArray[x], x, 1);
-        return;
-      }
-    }
+    const x = computerArray.splice(Math.floor(Math.random() * computerArray.length), 1);
+    playerOne.receiveAttack(playerOne.gameArray[x], x, 1);
+    turn = 1;
   };
 
   const hitComputer = (coords, num, x) => {
-    computerOne.receiveAttack(coords, num, x);
-    setTimeout(() => {
-      hitPlayer();
-    }, '500');
+    if (turn === 1) {
+      computerOne.receiveAttack(coords, num, x);
+      turn = 2;
+      setTimeout(() => {
+        hitPlayer();
+      }, '500');
+    }
   };
 
   return {
