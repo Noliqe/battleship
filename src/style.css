@@ -17,3 +17,130 @@ body {
     background-color: lightpink;
 }
 
+.gridContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.buttons {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+.buttons > * {
+    height: 25px;
+    width: 50px;
+}
+
+
+.startGrid {
+    width: 500px;
+    display: grid;
+    grid-template-columns: repeat(10, 50px);
+    grid-template-rows: repeat(10, 50px);
+    border: 2px solid black;
+}
+
+.startGrid > * {
+    border: 1px solid gray;
+}
+
+.shipGrid {
+    width: 250px;
+    border: 2px solid black;
+    display: grid;
+    grid-template-columns: repeat(5, 50px);
+    grid-template-rows: repeat(5, 50px);
+}
+
+.shipGrid > * {
+    border: 1px solid lightgreen;
+}
+
+.hide {
+    display: none;
+}
+
+.drag-over {
+    border: dashed 3px red;
+}
+.fleetContainer {
+    width: 500px;
+    border: 2px solid red;
+}
+.dragAbleFleets {
+    width: 500px;
+    height: 400px;
+    border: 2px solid brown;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.shipCarrierContainer {
+    border: 2px solid blue;
+    display: grid;
+    grid-template-columns: repeat(5, 50px);
+}
+
+.carrier {
+    height: 50px;
+    width: 50px;
+    border: 1px solid grey;
+    background-color: blue;
+}
+
+.shipBattleshipContainer {
+    border: 2px solid red;
+    display: grid;
+    grid-template-columns: repeat(4, 50px);
+}
+
+.battleship {
+    height: 50px;
+    width: 50px;
+    border: 1px solid grey;
+    background-color: red;
+}
+
+.shipSubmarineContainer {
+    border: 2px solid green;
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+}
+
+.submarine {
+    height: 50px;
+    width: 50px;
+    border: 1px solid grey;
+    background-color: green;
+}
+
+.shipDestroyerContainer {
+    border: 2px solid yellow;
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+}
+
+.destroyer {
+    height: 50px;
+    width: 50px;
+    border: 1px solid grey;
+    background-color: yellow;
+}
+
+.shipPatrolBoatContainer {
+    border: 2px solid orange;
+    display: grid;
+    grid-template-columns: repeat(2, 50px);
+}
+
+.patrol-boat {
+    height: 50px;
+    width: 50px;
+    border: 1px solid grey;
+    background-color: orange;
+}

@@ -1,7 +1,11 @@
 /* eslint-disable import/no-import-module-exports */
 import './style.css';
-import gameBoard from './gameboard.js';
-import ship from './ship.js';
-import player from './player.js';
+import gameBoard from './gameboard';
+import ship from './ship';
+import player from './player';
+import game from './game';
+import drag from './drag';
 
-module.exports = {};
+const test = drag();
+test.createBoard();
+test.dragAbleShips();
