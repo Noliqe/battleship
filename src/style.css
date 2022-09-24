@@ -87,8 +87,8 @@ body {
 }
 
 .carrier {
-    height: 50px;
-    width: 50px;
+    height: 48px;
+    width: 48px;
     border: 1px solid grey;
     background-color: blue;
 }
@@ -100,8 +100,8 @@ body {
 }
 
 .battleship {
-    height: 50px;
-    width: 50px;
+    height: 48px;
+    width: 48px;
     border: 1px solid grey;
     background-color: red;
 }
@@ -113,8 +113,8 @@ body {
 }
 
 .submarine {
-    height: 50px;
-    width: 50px;
+    height: 48px;
+    width: 48px;
     border: 1px solid grey;
     background-color: green;
 }
@@ -126,8 +126,8 @@ body {
 }
 
 .destroyer {
-    height: 50px;
-    width: 50px;
+    height: 48px;
+    width: 48px;
     border: 1px solid grey;
     background-color: yellow;
 }
@@ -139,8 +139,8 @@ body {
 }
 
 .patrol-boat {
-    height: 50px;
-    width: 50px;
+    height: 48px;
+    width: 48px;
     border: 1px solid grey;
     background-color: orange;
 }

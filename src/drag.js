@@ -57,8 +57,21 @@ const drag = () => {
 
     // add it to the drop target
     e.target.appendChild(draggable);
-    console.log(e.target);
-    console.log(e.target.children[0].children);
+    // add childnodes to new parent
+    while (draggable.childNodes.length > 0) {
+      e.target.appendChild(draggable.childNodes[0]);
+    }
+    // remove old parent
+    e.target.removeChild(draggable);
+    // if horizontal put scatter childNodes to next tile
+    let a = 0;
+    while (e.target.childNodes.length > 1) {
+      a += 1;
+      const x = e.target.id;
+      const y = Number(x.match(/\d+/)[0]);
+      const tile = document.getElementById(`tile${y + a}`);
+      tile.appendChild(e.target.childNodes[0]);
+    }
 
     // display the draggable element
     draggable.classList.remove('hide');
