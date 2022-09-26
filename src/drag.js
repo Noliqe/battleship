@@ -1,6 +1,11 @@
+/* eslint-disable max-len */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-plusplus */
+import dom from './DOMJS';
+import ship from './ship';
+
 const drag = () => {
+  let horizontal = true;
   // make a board where user can place ships
   const createBoard = () => {
     const startGrid = document.querySelector('.startGrid');
@@ -27,7 +32,39 @@ const drag = () => {
       }
     }
   };
+  // check if ship is in border
+  const valid = (dataY, dataX, length) => {
+    let trueOfFalse = '';
+    if (horizontal === true) {
+      // const tile = document.querySelector(`#${num}`);
+      if (length + Number(dataX) > 11) {
+        trueOfFalse = false;
+      } else {
+        trueOfFalse = true;
+      }
+    } else if (horizontal === false) {
+      if (length + Number(dataY) > 11) {
+        trueOfFalse = false;
+      } else {
+        trueOfFalse = true;
+      }
+    }
+    return trueOfFalse;
+  };
+
+  // no ship placement on another ship
+  // eslint-disable-next-line consistent-return
+  const checkId = (id) => {
+    const x = id.replace(/[^a-zA-Z]+/g, '');
+    if (x === 'tile') {
+      return true;
+    }
+  };
+
+  let shipLength = '';
+
   function dragStart(e) {
+    shipLength = e.srcElement.children.length;
     e.dataTransfer.setData('text/plain', e.target.id);
     setTimeout(() => {
       e.target.classList.add('hide');
@@ -50,6 +87,9 @@ const drag = () => {
 
   function drop(e) {
     e.target.classList.remove('drag-over');
+    if (valid(e.target.dataset.y, e.target.dataset.x, shipLength) === false || checkId(e.target.id) !== true) {
+      return;
+    }
 
     // get the draggable element
     const id = e.dataTransfer.getData('text/plain');
@@ -64,96 +104,72 @@ const drag = () => {
     // remove old parent
     e.target.removeChild(draggable);
     // if horizontal put scatter childNodes to next tile
-    let a = 0;
-    while (e.target.childNodes.length > 1) {
-      a += 1;
-      const x = e.target.id;
-      const y = Number(x.match(/\d+/)[0]);
-      const tile = document.getElementById(`tile${y + a}`);
-      tile.appendChild(e.target.childNodes[0]);
+    if (horizontal === true) {
+      let a = 0;
+      while (e.target.childNodes.length > 1) {
+        a += 1;
+        const x = e.target.id;
+        const y = Number(x.match(/\d+/)[0]);
+        const tile = document.getElementById(`tile${y + a}`);
+        tile.appendChild(e.target.childNodes[0]);
+      }
+    } else if (horizontal === false) {
+      let a = 0;
+      while (e.target.childNodes.length > 1) {
+        a += 10;
+        const x = e.target.id;
+        const y = Number(x.match(/\d+/)[0]);
+        const tile = document.getElementById(`tile${y + a}`);
+        tile.appendChild(e.target.childNodes[0]);
+      }
     }
+    const x = e.target.id;
+    const y = Number(x.match(/\d+/)[0]);
+    const tile = document.getElementById(`tile${y}`);
+    const dataY = Number(tile.dataset.y);
+    console.log(dataY);
+    const dataX = Number(tile.dataset.x);
+    console.log(dataX);
 
     // display the draggable element
     draggable.classList.remove('hide');
   }
 
-  const dragAbleShips = () => {
-    const gridContainer = document.querySelector('.gridContainer');
-    const fleetContainer = document.createElement('div');
-    fleetContainer.classList.add('fleetContainer');
-    const h1Text = document.createElement('h1');
-    h1Text.textContent = 'Drag your ships';
-    fleetContainer.appendChild(h1Text);
-    gridContainer.appendChild(fleetContainer);
-    const dragAble = document.createElement('div');
-    dragAble.classList.add('dragAbleFleets');
-    fleetContainer.appendChild(dragAble);
+  const rotate = () => {
+    const rotateShip = document.querySelectorAll('.ships');
+    if (horizontal === true) {
+      for (let i = 0; i < rotateShip.length; i++) {
+        rotateShip[i].classList.add('vertical');
+      }
+      horizontal = false;
+    } else if (horizontal === false) {
+      for (let i = 0; i < rotateShip.length; i++) {
+        rotateShip[i].classList.remove('vertical');
+      }
+      horizontal = true;
+    }
+  };
 
-    const shipCarrierContainer = document.createElement('div');
-    dragAble.appendChild(shipCarrierContainer);
-    shipCarrierContainer.classList.add('shipCarrierContainer');
-    shipCarrierContainer.setAttribute('id', 'shipCarrierContainer');
-    shipCarrierContainer.setAttribute('draggable', true);
-    shipCarrierContainer.setAttribute('data-ship', 'carrier');
-    shipCarrierContainer.addEventListener('dragstart', dragStart);
-    for (let i = 0; i < 5; i++) {
-      const carrier = document.createElement('div');
-      shipCarrierContainer.appendChild(carrier);
-      carrier.classList.add('carrier');
-      carrier.setAttribute('data-index', i);
-    }
-    const shipBattleshipContainer = document.createElement('div');
-    dragAble.appendChild(shipBattleshipContainer);
-    shipBattleshipContainer.classList.add('shipBattleshipContainer');
-    shipBattleshipContainer.setAttribute('id', 'shipBattleshipContainer');
-    shipBattleshipContainer.setAttribute('draggable', true);
-    shipBattleshipContainer.setAttribute('data-ship', 'battleship');
-    shipBattleshipContainer.addEventListener('dragstart', dragStart);
-    for (let i = 0; i < 4; i++) {
-      const battleship = document.createElement('div');
-      shipBattleshipContainer.appendChild(battleship);
-      battleship.classList.add('battleship');
-      battleship.setAttribute('data-index', i);
-    }
-    const shipSubmarineContainer = document.createElement('div');
-    dragAble.appendChild(shipSubmarineContainer);
-    shipSubmarineContainer.classList.add('shipSubmarineContainer');
-    shipSubmarineContainer.setAttribute('id', 'shipSubmarineContainer');
-    shipSubmarineContainer.setAttribute('draggable', true);
-    shipSubmarineContainer.setAttribute('data-ship', 'submarine');
-    shipSubmarineContainer.addEventListener('dragstart', dragStart);
-    for (let i = 0; i < 3; i++) {
-      const submarine = document.createElement('div');
-      shipSubmarineContainer.appendChild(submarine);
-      submarine.classList.add('submarine');
-      submarine.setAttribute('data-index', i);
-    }
-    const shipDestroyerContainer = document.createElement('div');
-    dragAble.appendChild(shipDestroyerContainer);
-    shipDestroyerContainer.classList.add('shipDestroyerContainer');
-    shipDestroyerContainer.setAttribute('id', 'shipDestroyerContainer');
-    shipDestroyerContainer.setAttribute('draggable', true);
-    shipDestroyerContainer.setAttribute('data-ship', 'destroyer');
-    shipDestroyerContainer.addEventListener('dragstart', dragStart);
-    for (let i = 0; i < 3; i++) {
-      const destroyer = document.createElement('div');
-      shipDestroyerContainer.appendChild(destroyer);
-      destroyer.classList.add('destroyer');
-      destroyer.setAttribute('data-index', i);
-    }
-    const shipPatrolBoatContainer = document.createElement('div');
-    dragAble.appendChild(shipPatrolBoatContainer);
-    shipPatrolBoatContainer.classList.add('shipPatrolBoatContainer');
-    shipPatrolBoatContainer.setAttribute('id', 'shipPatrolBoatContainer');
-    shipPatrolBoatContainer.setAttribute('draggable', true);
-    shipPatrolBoatContainer.setAttribute('data-ship', 'patrol-Boat');
-    shipPatrolBoatContainer.addEventListener('dragstart', dragStart);
-    for (let i = 0; i < 2; i++) {
-      const patrolBoat = document.createElement('div');
-      shipPatrolBoatContainer.appendChild(patrolBoat);
-      patrolBoat.classList.add('patrol-boat');
-      patrolBoat.setAttribute('data-index', i);
-    }
+  const dragAbleShips = () => {
+    dom();
+    // carrier
+    const carrierContainer = document.querySelector('.carrier-container');
+    carrierContainer.addEventListener('dragstart', dragStart);
+    // battleship
+    const battleshipContainer = document.querySelector('.battleship-container');
+    battleshipContainer.addEventListener('dragstart', dragStart);
+    // submarine
+    const submarineContainer = document.querySelector('.submarine-container');
+    submarineContainer.addEventListener('dragstart', dragStart);
+    // destroyer
+    const destroyerContainer = document.querySelector('.destroyer-container');
+    destroyerContainer.addEventListener('dragstart', dragStart);
+    // patrol boat
+    const patrolBoatContainer = document.querySelector('.patrolBoat-container');
+    patrolBoatContainer.addEventListener('dragstart', dragStart);
+    // rotate button
+    const rotateButton = document.querySelector('.rotateButton');
+    rotateButton.addEventListener('click', rotate);
   };
   return {
     createBoard,
