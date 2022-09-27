@@ -6,6 +6,4 @@ import player from './player';
 import game from './game';
 import drag from './drag';
 
-const test = drag();
-test.createBoard();
-test.dragAbleShips();
+const test = game();

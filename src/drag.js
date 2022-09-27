@@ -1,8 +1,8 @@
+/* eslint-disable consistent-return */
 /* eslint-disable max-len */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-plusplus */
 import dom from './DOMJS';
-import ship from './ship';
 
 const drag = () => {
   let horizontal = true;
@@ -32,6 +32,20 @@ const drag = () => {
       }
     }
   };
+
+  // check if all ships are placed
+  const checkChildren = () => {
+    const fleets = document.querySelector('.dragAbleFleets');
+    if (fleets.children.length === 0) {
+      const startButton = document.querySelector('.startButton');
+      fleets.appendChild(startButton);
+      startButton.classList.remove('hide');
+      startButton.classList.add('show');
+    }
+  };
+
+  const placementArray = [];
+
   // check if ship is in border
   const valid = (dataY, dataX, length) => {
     let trueOfFalse = '';
@@ -54,9 +68,29 @@ const drag = () => {
 
   // no ship placement on another ship
   // eslint-disable-next-line consistent-return
-  const checkId = (id) => {
+  const checkId = (id, length) => {
     const x = id.replace(/[^a-zA-Z]+/g, '');
-    if (x === 'tile') {
+    const y = Number(id.match(/\d+/)[0]);
+    const childrenArray = [];
+    if (horizontal === true) {
+      for (let i = 0; i < length; i++) {
+        const a = i + 1;
+        const tile = document.getElementById(`tile${y + a}`);
+        if (tile.children[0] !== undefined) {
+          childrenArray.push(tile.children[0]);
+        }
+      }
+    } else if (horizontal === false) {
+      let a = 0;
+      for (let i = 0; i < length; i++) {
+        a += 10;
+        const tile = document.getElementById(`tile${y + a}`);
+        if (tile.children[0] !== undefined) {
+          childrenArray.push(tile.children[0]);
+        }
+      }
+    }
+    if (x === 'tile' && childrenArray.length === 0) {
       return true;
     }
   };
@@ -87,7 +121,7 @@ const drag = () => {
 
   function drop(e) {
     e.target.classList.remove('drag-over');
-    if (valid(e.target.dataset.y, e.target.dataset.x, shipLength) === false || checkId(e.target.id) !== true) {
+    if (valid(e.target.dataset.y, e.target.dataset.x, shipLength) === false || checkId(e.target.id, shipLength) !== true) {
       return;
     }
 
@@ -103,6 +137,10 @@ const drag = () => {
     }
     // remove old parent
     e.target.removeChild(draggable);
+    // temp array to make array units for placement ships
+    const tempArray = [];
+    tempArray.push(draggable.dataset.ship);
+    tempArray.push([e.target.dataset.x, e.target.dataset.y]);
     // if horizontal put scatter childNodes to next tile
     if (horizontal === true) {
       let a = 0;
@@ -112,6 +150,7 @@ const drag = () => {
         const y = Number(x.match(/\d+/)[0]);
         const tile = document.getElementById(`tile${y + a}`);
         tile.appendChild(e.target.childNodes[0]);
+        tempArray.push([tile.dataset.x, tile.dataset.y]);
       }
     } else if (horizontal === false) {
       let a = 0;
@@ -123,13 +162,9 @@ const drag = () => {
         tile.appendChild(e.target.childNodes[0]);
       }
     }
-    const x = e.target.id;
-    const y = Number(x.match(/\d+/)[0]);
-    const tile = document.getElementById(`tile${y}`);
-    const dataY = Number(tile.dataset.y);
-    console.log(dataY);
-    const dataX = Number(tile.dataset.x);
-    console.log(dataX);
+
+    placementArray.push(tempArray);
+    checkChildren();
 
     // display the draggable element
     draggable.classList.remove('hide');
@@ -174,6 +209,8 @@ const drag = () => {
   return {
     createBoard,
     dragAbleShips,
+    checkChildren,
+    placementArray,
   };
 };
 

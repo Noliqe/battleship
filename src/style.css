@@ -33,6 +33,12 @@ body {
     width: 50px;
 }
 
+.startButton {
+    height: 100px;
+    width: 150px;
+    font-size: 25px;
+}
+
 
 .startGrid {
     width: 500px;
@@ -62,9 +68,21 @@ body {
     display: none;
 }
 
+.show {
+    visibility: visible;
+}
+
+.disable {
+    transform: scale(0.8);
+    transition: all 1s ease;
+    opacity: 0.8;
+}
+
 .drag-over {
     border: dashed 3px black;
 }
+
+/* ships */
 
 .fleetContainer {
     width: 500px;
@@ -80,7 +98,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    align-items: space-around;
+    align-items: center;
     gap: 5px;
 }
 

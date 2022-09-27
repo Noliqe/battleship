@@ -18,6 +18,12 @@ const dom = () => {
   dragAble.classList.add('dragAbleFleets');
   fleetContainer.appendChild(dragAble);
 
+  const startButton = document.createElement('button');
+  startButton.classList.add('startButton');
+  startButton.classList.add('hide');
+  startButton.textContent = 'start';
+  fleetContainer.appendChild(startButton);
+
   const carrierContainer = document.createElement('div');
   dragAble.appendChild(carrierContainer);
   carrierContainer.classList.add('ships');

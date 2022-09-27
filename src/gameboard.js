@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable no-undef */
 /* eslint-disable consistent-return */
 // eslint-disable-next-line import/extensions, import/no-import-module-exports
@@ -5,6 +6,22 @@ import ship from './ship.js';
 
 const gameBoard = () => {
   const gameArray = [];
+  const createBoard = (num) => {
+    const gridBoard = document.querySelector(`.gridBoard${num}`);
+    for (let i = 0; i < 100; i++) {
+      gameArray.push('');
+      const square = document.createElement('div');
+      gridBoard.appendChild(square);
+      square.classList.add('squares');
+      const x = `square${i}-board${num}`;
+      square.setAttribute('id', x);
+      square.addEventListener('click', () => {
+        if (num === 2) {
+          square.style.pointerEvents = 'none';
+        }
+      });
+    }
+  };
   const placeShips = (y, x) => {
 
   };
@@ -32,6 +49,7 @@ const gameBoard = () => {
     placeShips,
     receiveAttack,
     allSunk,
+    createBoard,
   };
 };
 
