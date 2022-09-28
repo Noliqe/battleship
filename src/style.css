@@ -39,7 +39,7 @@ body {
     font-size: 25px;
 }
 
-
+ /* Grids  */
 .startGrid {
     width: 500px;
     display: grid;
@@ -64,18 +64,34 @@ body {
     border: 1px solid lightgreen;
 }
 
+.gridBoard1, .gridBoard2 {
+    width: 500px;
+    display: grid;
+    grid-template-columns: repeat(10, 50px);
+    grid-template-rows: repeat(10, 50px);
+    border: 2px solid black;
+}
+
+.gridBoard1 {
+    transform: scale(0.8);
+    transition: all 1s ease;
+    opacity: 0.8;
+}
+
+.gridBoard1 > * {
+    border: 1px solid gray;
+}
+
+.gridBoard2 > * {
+    border: 1px solid gray;
+}
+
 .hide {
-    display: none;
+    display: none !important;
 }
 
 .show {
     visibility: visible;
-}
-
-.disable {
-    transform: scale(0.8);
-    transition: all 1s ease;
-    opacity: 0.8;
 }
 
 .drag-over {

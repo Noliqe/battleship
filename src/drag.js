@@ -72,8 +72,11 @@ const drag = () => {
     const x = id.replace(/[^a-zA-Z]+/g, '');
     const y = Number(id.match(/\d+/)[0]);
     const childrenArray = [];
+    if (x !== 'tile') {
+      return;
+    }
     if (horizontal === true) {
-      for (let i = 0; i < length; i++) {
+      for (let i = 0; i < length - 1; i++) {
         const a = i + 1;
         const tile = document.getElementById(`tile${y + a}`);
         if (tile.children[0] !== undefined) {
@@ -82,7 +85,7 @@ const drag = () => {
       }
     } else if (horizontal === false) {
       let a = 0;
-      for (let i = 0; i < length; i++) {
+      for (let i = 0; i < length - 1; i++) {
         a += 10;
         const tile = document.getElementById(`tile${y + a}`);
         if (tile.children[0] !== undefined) {

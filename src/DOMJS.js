@@ -82,7 +82,7 @@ const dom = () => {
   patrolBoatContainer.classList.add('patrolBoat-container');
   patrolBoatContainer.setAttribute('id', 'patrolBoat-container');
   patrolBoatContainer.setAttribute('draggable', true);
-  patrolBoatContainer.setAttribute('data-ship', 'patrol-Boat');
+  patrolBoatContainer.setAttribute('data-ship', 'patrol-boat');
   for (let i = 0; i < 2; i++) {
     const patrolBoat = document.createElement('div');
     patrolBoatContainer.appendChild(patrolBoat);

@@ -1,5 +1,8 @@
 /* eslint-disable no-plusplus */
+import gameBoard from './gameboard';
+
 const player = () => {
+  const play = gameBoard();
   const attack = (y, x, enemyboard) => {
     enemyboard.receiveAttack(y, x);
   };
@@ -23,6 +26,7 @@ const player = () => {
     // enemyboard.receiveAttack(y, x);
   };
   return {
+    play,
     attack,
     attackArray,
     computerAttack,
