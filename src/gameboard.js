@@ -1,3 +1,4 @@
+/* eslint-disable no-loop-func */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-undef */
 /* eslint-disable consistent-return */
@@ -49,6 +50,7 @@ const gameBoard = () => {
     if (shipName === 'carrier') {
       // remove first element from array
       coordinates.shift();
+      console.log(coordinates);
       carrier.object.coords = coordinates;
     } else if (shipName === 'battleship') {
       // remove first element from array
@@ -69,15 +71,17 @@ const gameBoard = () => {
     }
   };
 
+  // turn variable x and y tile index number
   const getIndex = (index) => {
     const x = Number(index[0]);
     const y = Number(index[1]);
-    const total = (y * 10) - 10 + x;
+    const total = (y * 10) - 10 + (x - 1);
     return total;
   };
 
+  // if gameArray contains ship, tile style blue
   const tileColor = (index) => {
-    const square = document.querySelector(`#square${index}-board1`);
+    const square = document.querySelector(`#square${index}-board${1}`);
     square.style.background = 'blue';
   };
 
@@ -87,52 +91,79 @@ const gameBoard = () => {
       const index = carrier.object.coords[i];
       const total = getIndex(index);
       gameArray[total] = carrier.object.name;
-      tileColor(total);
+      tileColor(total + 1);
     }
     for (let i = 0; i < battleship.object.coords.length; i++) {
       const index = battleship.object.coords[i];
       const total = getIndex(index);
       gameArray[total] = battleship.object.name;
-      tileColor(total);
+      tileColor(total + 1);
     }
     for (let i = 0; i < destroyer.object.coords.length; i++) {
       const index = destroyer.object.coords[i];
       const total = getIndex(index);
       gameArray[total] = destroyer.object.name;
-      tileColor(total);
+      tileColor(total + 1);
     }
     for (let i = 0; i < submarine.object.coords.length; i++) {
       const index = submarine.object.coords[i];
       const total = getIndex(index);
       gameArray[total] = submarine.object.name;
-      tileColor(total);
+      tileColor(total + 1);
     }
     for (let i = 0; i < patrolBoat.object.coords.length; i++) {
       const index = patrolBoat.object.coords[i];
       const total = getIndex(index);
       gameArray[total] = patrolBoat.object.name;
-      tileColor(total);
+      tileColor(total + 1);
     }
   };
-  const receiveAttack = (name, coords) => {
-    if (coords === name) {
-      name.hit();
-    } else {
-      gameArray[coords].push('miss');
-    }
-  };
+
+  // check if all ships are sunk
   const allSunk = () => {
-    const a = placeShips.carrier.object.sunk;
-    const b = placeShips.battleship.object.sunk;
-    const c = placeShips.destroyer.object.sunk;
-    const d = placeShips.submarine.object.sunk;
-    const e = placeShips.patrolBoat.object.sunk;
+    const a = carrier.object.sunk;
+    const b = battleship.object.sunk;
+    const c = destroyer.object.sunk;
+    const d = submarine.object.sunk;
+    const e = patrolBoat.object.sunk;
     let x = false;
     if (a === true && b === true && c === true && d === true && e === true) {
       // eslint-disable-next-line no-unused-vars
       x = true;
     }
   };
+
+  // when receiving attack, check wether hit or not
+  const receiveAttack = (coords, num, x) => {
+    const tile = document.getElementById(`square${num}-board${x}`);
+    const z = num - 1;
+    if (coords === 'carrier') {
+      carrier.hit(z);
+      tile.style.background = 'yellow';
+      gameArray[z] = 'O';
+    } else if (coords === 'battleship') {
+      battleship.hit(z);
+      tile.style.background = 'yellow';
+      gameArray[z] = 'O';
+    } else if (coords === 'destroyer') {
+      destroyer.hit(z);
+      tile.style.background = 'yellow';
+      gameArray[z] = 'O';
+    } else if (coords === 'submarine') {
+      submarine.hit(z);
+      tile.style.background = 'yellow';
+      gameArray[z] = 'O';
+    } else if (coords === 'patrol-boat') {
+      patrolBoat.hit(z);
+      tile.style.background = 'yellow';
+      gameArray[z] = 'O';
+    } else {
+      gameArray[z] = ('miss');
+      tile.style.background = 'brown';
+    }
+    allSunk();
+  };
+
   return {
     gameArray,
     shipCoordinates,

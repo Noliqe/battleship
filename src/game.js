@@ -7,6 +7,7 @@ import gameBoard from './gameboard';
 import ship from './ship';
 import player from './player';
 import drag from './drag';
+import randomXY from './random';
 
 const game = () => {
   // start with placement ships
@@ -15,12 +16,25 @@ const game = () => {
   start.dragAbleShips();
   const playerOne = player();
   const computerOne = player();
+  const test = randomXY();
+  test.getData(5, 'carrier');
+  console.log(test.xyArray);
 
   const removeStartScreen = () => {
     const startGrid = document.querySelector('.startGrid');
     const fleets = document.querySelector('.fleetContainer');
     startGrid.classList.add('hide');
     fleets.classList.add('hide');
+  };
+
+  const eventListener = () => {
+    for (let i = 0; i < 100; i++) {
+      const square = document.getElementById(`square${i + 1}-board2`);
+      square.addEventListener('click', () => {
+        playerOne.hitComputer(computerOne.play.gameArray[i], i + 1, 2);
+        playerOne.hitPlayer();
+      });
+    }
   };
 
   const placement = () => {
@@ -39,6 +53,8 @@ const game = () => {
     const gridBoard2 = document.querySelector('.gridBoard2');
     gridBoard1.classList.remove('hide');
     gridBoard2.classList.remove('hide');
+
+    eventListener();
     return {
       playerOne,
       computerOne,

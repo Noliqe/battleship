@@ -124,13 +124,15 @@ const drag = () => {
 
   function drop(e) {
     e.target.classList.remove('drag-over');
-    if (valid(e.target.dataset.y, e.target.dataset.x, shipLength) === false || checkId(e.target.id, shipLength) !== true) {
-      return;
-    }
-
     // get the draggable element
     const id = e.dataTransfer.getData('text/plain');
     const draggable = document.getElementById(id);
+
+    // check if position is valid
+    if (valid(e.target.dataset.y, e.target.dataset.x, shipLength) === false || checkId(e.target.id, shipLength) !== true) {
+      draggable.classList.remove('hide');
+      return;
+    }
 
     // add it to the drop target
     e.target.appendChild(draggable);
@@ -163,9 +165,9 @@ const drag = () => {
         const y = Number(x.match(/\d+/)[0]);
         const tile = document.getElementById(`tile${y + a}`);
         tile.appendChild(e.target.childNodes[0]);
+        tempArray.push([tile.dataset.x, tile.dataset.y]);
       }
     }
-
     placementArray.push(tempArray);
     checkChildren();
 

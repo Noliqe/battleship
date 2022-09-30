@@ -3,33 +3,30 @@ import gameBoard from './gameboard';
 
 const player = () => {
   const play = gameBoard();
-  const attack = (y, x, enemyboard) => {
-    enemyboard.receiveAttack(y, x);
+
+  const computerArray = [];
+  for (let i = 0; i < 100; i++) {
+    computerArray.push(i);
+  }
+
+  const hitPlayer = () => {
+    setTimeout(() => {
+      const x = computerArray.splice(Math.floor(Math.random() * computerArray.length), 1);
+      const y = Number(x) + 1;
+      play.receiveAttack(play.gameArray[x], y, 1);
+    }, '500');
   };
 
-  const attackArray = [];
-  const computerAttack = (enemyboard) => {
-    let y = 0;
-    let x = 1;
-    // loop 109 times, 9 times else
-    for (let i = 0; i < 109; i++) {
-      if (y < 10) {
-        y += 1;
-        attackArray.push(`${y}, ${x}`);
-      } else {
-        y = 1;
-        x += 1;
-      }
-    }
-    const z = [y, x];
-    attackArray.push(z);
-    // enemyboard.receiveAttack(y, x);
+  const hitComputer = (coords, num, x) => {
+    console.log(coords);
+    play.receiveAttack(coords, num, x);
   };
+
   return {
     play,
-    attack,
-    attackArray,
-    computerAttack,
+    hitPlayer,
+    computerArray,
+    hitComputer,
   };
 };
 
