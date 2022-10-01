@@ -50,7 +50,6 @@ const gameBoard = () => {
     if (shipName === 'carrier') {
       // remove first element from array
       coordinates.shift();
-      console.log(coordinates);
       carrier.object.coords = coordinates;
     } else if (shipName === 'battleship') {
       // remove first element from array
@@ -86,36 +85,46 @@ const gameBoard = () => {
   };
 
   // place ship on grid array
-  const placeShips = () => {
+  const placeShips = (num) => {
     for (let i = 0; i < carrier.object.coords.length; i++) {
       const index = carrier.object.coords[i];
       const total = getIndex(index);
       gameArray[total] = carrier.object.name;
-      tileColor(total + 1);
+      if (num === 1) {
+        tileColor(total + 1);
+      }
     }
     for (let i = 0; i < battleship.object.coords.length; i++) {
       const index = battleship.object.coords[i];
       const total = getIndex(index);
       gameArray[total] = battleship.object.name;
-      tileColor(total + 1);
+      if (num === 1) {
+        tileColor(total + 1);
+      }
     }
     for (let i = 0; i < destroyer.object.coords.length; i++) {
       const index = destroyer.object.coords[i];
       const total = getIndex(index);
       gameArray[total] = destroyer.object.name;
-      tileColor(total + 1);
+      if (num === 1) {
+        tileColor(total + 1);
+      }
     }
     for (let i = 0; i < submarine.object.coords.length; i++) {
       const index = submarine.object.coords[i];
       const total = getIndex(index);
       gameArray[total] = submarine.object.name;
-      tileColor(total + 1);
+      if (num === 1) {
+        tileColor(total + 1);
+      }
     }
     for (let i = 0; i < patrolBoat.object.coords.length; i++) {
       const index = patrolBoat.object.coords[i];
       const total = getIndex(index);
       gameArray[total] = patrolBoat.object.name;
-      tileColor(total + 1);
+      if (num === 1) {
+        tileColor(total + 1);
+      }
     }
   };
 
