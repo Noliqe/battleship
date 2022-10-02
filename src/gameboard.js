@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-loop-func */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-undef */
@@ -135,39 +136,38 @@ const gameBoard = () => {
     const c = destroyer.object.sunk;
     const d = submarine.object.sunk;
     const e = patrolBoat.object.sunk;
-    let x = false;
     if (a === true && b === true && c === true && d === true && e === true) {
       // eslint-disable-next-line no-unused-vars
-      x = true;
+      console.log('game over');
     }
   };
 
   // when receiving attack, check wether hit or not
-  const receiveAttack = (coords, num, x) => {
+  const receiveAttack = (coords, num, x, enemyArray) => {
     const tile = document.getElementById(`square${num}-board${x}`);
     const z = num - 1;
     if (coords === 'carrier') {
       carrier.hit(z);
       tile.style.background = 'yellow';
-      gameArray[z] = 'O';
+      enemyArray[z] = 'O';
     } else if (coords === 'battleship') {
       battleship.hit(z);
       tile.style.background = 'yellow';
-      gameArray[z] = 'O';
+      enemyArray[z] = 'O';
     } else if (coords === 'destroyer') {
       destroyer.hit(z);
       tile.style.background = 'yellow';
-      gameArray[z] = 'O';
+      enemyArray[z] = 'O';
     } else if (coords === 'submarine') {
       submarine.hit(z);
       tile.style.background = 'yellow';
-      gameArray[z] = 'O';
+      enemyArray[z] = 'O';
     } else if (coords === 'patrol-boat') {
       patrolBoat.hit(z);
       tile.style.background = 'yellow';
-      gameArray[z] = 'O';
+      a[z] = 'O';
     } else {
-      gameArray[z] = ('miss');
+      enemyArray[z] = ('miss');
       tile.style.background = 'brown';
     }
     allSunk();

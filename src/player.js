@@ -9,17 +9,16 @@ const player = () => {
     computerArray.push(i);
   }
 
-  const hitPlayer = () => {
+  const hitPlayer = (gameArray) => {
     setTimeout(() => {
       const x = computerArray.splice(Math.floor(Math.random() * computerArray.length), 1);
       const y = Number(x) + 1;
-      play.receiveAttack(play.gameArray[x], y, 1);
+      play.receiveAttack(gameArray[x], y, 1, gameArray);
     }, '500');
   };
 
-  const hitComputer = (coords, num, x) => {
-    console.log(coords);
-    play.receiveAttack(coords, num, x);
+  const hitComputer = (coords, num, x, gameArray) => {
+    play.receiveAttack(coords, num, x, gameArray);
   };
 
   return {

@@ -29,8 +29,8 @@ const game = () => {
     for (let i = 0; i < 100; i++) {
       const square = document.getElementById(`square${i + 1}-board2`);
       square.addEventListener('click', () => {
-        playerOne.hitComputer(computerOne.play.gameArray[i], i + 1, 2);
-        playerOne.hitPlayer();
+        playerOne.hitComputer(computerOne.play.gameArray[i], i + 1, 2, computerOne.play.gameArray);
+        computerOne.hitPlayer(playerOne.play.gameArray);
       });
     }
   };
