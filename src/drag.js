@@ -145,6 +145,7 @@ const drag = () => {
     // temp array to make array units for placement ships
     const tempArray = [];
     tempArray.push(draggable.dataset.ship);
+    tempArray.push(draggable.dataset.color);
     tempArray.push([e.target.dataset.x, e.target.dataset.y]);
     // if horizontal put scatter childNodes to next tile
     if (horizontal === true) {

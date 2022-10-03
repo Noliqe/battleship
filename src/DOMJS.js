@@ -31,6 +31,7 @@ const dom = () => {
   carrierContainer.setAttribute('id', 'carrier-container');
   carrierContainer.setAttribute('draggable', true);
   carrierContainer.setAttribute('data-ship', 'carrier');
+  carrierContainer.setAttribute('data-color', 'blue');
   for (let i = 0; i < 5; i++) {
     const carrier = document.createElement('div');
     carrierContainer.appendChild(carrier);
@@ -44,6 +45,7 @@ const dom = () => {
   battleshipContainer.setAttribute('id', 'battleship-container');
   battleshipContainer.setAttribute('draggable', true);
   battleshipContainer.setAttribute('data-ship', 'battleship');
+  battleshipContainer.setAttribute('data-color', 'red');
   for (let i = 0; i < 4; i++) {
     const battleship = document.createElement('div');
     battleshipContainer.appendChild(battleship);
@@ -57,6 +59,7 @@ const dom = () => {
   submarineContainer.setAttribute('id', 'submarine-container');
   submarineContainer.setAttribute('draggable', true);
   submarineContainer.setAttribute('data-ship', 'submarine');
+  submarineContainer.setAttribute('data-color', 'green');
   for (let i = 0; i < 3; i++) {
     const submarine = document.createElement('div');
     submarineContainer.appendChild(submarine);
@@ -70,6 +73,7 @@ const dom = () => {
   destroyerContainer.setAttribute('id', 'destroyer-container');
   destroyerContainer.setAttribute('draggable', true);
   destroyerContainer.setAttribute('data-ship', 'destroyer');
+  destroyerContainer.setAttribute('data-color', 'yellow');
   for (let i = 0; i < 3; i++) {
     const destroyer = document.createElement('div');
     destroyerContainer.appendChild(destroyer);
@@ -83,6 +87,7 @@ const dom = () => {
   patrolBoatContainer.setAttribute('id', 'patrolBoat-container');
   patrolBoatContainer.setAttribute('draggable', true);
   patrolBoatContainer.setAttribute('data-ship', 'patrol-boat');
+  patrolBoatContainer.setAttribute('data-color', 'orange');
   for (let i = 0; i < 2; i++) {
     const patrolBoat = document.createElement('div');
     patrolBoatContainer.appendChild(patrolBoat);

@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
+:root {
+    font-family: 'Muli';
+}
+
 html {
     padding: 0;
     margin: 0;
@@ -8,18 +14,40 @@ body {
     height: 100vh;
     padding: 0;
     margin: 0;
-    background-color: lightblue;
+    background-color: #8d9db6;
 }
 
 .header {
     width: 100vw;
     height: 100px;
-    background-color: lightpink;
+    background-color: #8d9db6;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .gridContainer {
     display: flex;
     justify-content: center;
+}
+
+.rotateButton {
+    background-color: #8d9db6;
+    color: white;
+    border: 1px solid #bccad6;
+    width: 100px;
+    height: 40px;
+    border-radius: 15px;
+    font-size: 20px;
+}
+
+.rotateButton:hover {
+    background-color: #7990b4;
+}
+
+.rotateButton:active {
+    background-color: #6483b6;
 }
 
 .buttons {
@@ -34,18 +62,32 @@ body {
 }
 
 .startButton {
+    background-color: #8d9db6;
+    color: white;
+    border: 1px solid #bccad6;
     height: 100px;
     width: 150px;
     font-size: 25px;
+    border-radius: 15px;
+}
+
+.startButton:hover {
+    background-color: #7990b4;
+}
+
+.startButton:active {
+    background-color: #6483b6;
 }
 
  /* Grids  */
 .startGrid {
     width: 500px;
+    height: 500px;
     display: grid;
     grid-template-columns: repeat(10, 50px);
     grid-template-rows: repeat(10, 50px);
-    border: 2px solid black;
+    border: 2px solid white;
+    margin-top: 100px;
 }
 
 .startGrid > * {
@@ -69,7 +111,7 @@ body {
     display: grid;
     grid-template-columns: repeat(10, 50px);
     grid-template-rows: repeat(10, 50px);
-    border: 2px solid black;
+    border: 2px solid white;
 }
 
 .gridBoard1 {
@@ -90,10 +132,6 @@ body {
     display: none !important;
 }
 
-.show {
-    visibility: visible;
-}
-
 .drag-over {
     border: dashed 3px black;
 }
@@ -102,12 +140,17 @@ body {
 
 .fleetContainer {
     width: 500px;
-    border: 2px solid red;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 100px;
 }
+
+.fleetContainer > h1 {
+    font-weight: 300;
+}
+
 .dragAbleFleets {
     width: 300px;
     height: 400px;
@@ -164,4 +207,41 @@ body {
 .patrol-boat {
     border: 1px solid rgb(252, 188, 74);
     background-color: orange;
+}
+
+/* popUp */
+
+.popUp {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255,255,255, 0.3);
+    /* background-color: #36486b; */
+    z-index: 1;
+    backdrop-filter: blur(10px);
+    transition: opacity 2s ease;
+    opacity: 0.7;
+    font-size: 30px;
+}
+
+.popUp > button {
+    height: 50px;
+    width: 200px;
+    font-size: 25px;
+    border-radius: 15px;
+    border: 1px solid white;
+    color: white;
+    background-color: rgba(88, 88, 88, 0.3);
+}
+
+.popUp > button:hover {
+    background-color: #a6c0d6;  
+}
+
+.popUp > button:active {
+    background-color: #87b0d3;  
 }

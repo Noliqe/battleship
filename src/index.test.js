@@ -3,6 +3,7 @@ import gameBoard from './gameboard.js';
 import ship from './ship.js';
 import player from './player';
 
+// ship
 
 test('hit', () => {
   const carrier = ship('carrier', 5);
@@ -38,22 +39,37 @@ test('isSunk to be false', () => {
 
 // gameBoard
 
-// test('placeShips', () => {
+// test('createboard', () => {
 //   const test = gameBoard();
-//   test.placeShips('carrier', [1,2,3,4,5]);
-//   expect(test.placeShips.carrier.object.coords).toBe([1,2,3,4,5]);
+//   test.createBoard(1);
+//   expect(test.gameArray.length).toBe(100);
 // });
+
+test('ship coordinates', () => {
+  const test = gameBoard();
+  test.shipCoordinates('carrier', ['carrier', [1, 2], [1, 3], [1, 4], [1, 5], [1, 6]]);
+  expect(test.carrier.object.coords).toStrictEqual([[1, 2], [1, 3], [1, 4], [1, 5], [1, 6]]);
+});
+
+test('get index', () => {
+  const test = gameBoard();
+  expect(test.getIndex([1, 2])).toBe(10);
+});
+
+test('get index', () => {
+  const test = gameBoard();
+  expect(test.getIndex([2, 1])).toBe(1);
+});
+
+test('get index', () => {
+  const test = gameBoard();
+  expect(test.getIndex([1, 1])).toBe(0);
+});
 
 // player
 
 test('computerArray.length to be 100', () => {
   const playar = player();
-  playar.computerAttack();
-  expect(playar.attackArray.length).toBe(100);
+  expect(playar.computerArray.length).toBe(100);
 });
 
-test('computerArray.includes to be true', () => {
-  const playar = player();
-  playar.computerAttack();
-  expect(playar.attackArray.includes('5, 3')).toBe(true);
-});

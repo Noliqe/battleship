@@ -3,8 +3,8 @@
 /* eslint-disable no-lone-blocks */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-plusplus */
-import gameBoard from './gameboard';
-import ship from './ship';
+// import gameBoard from './gameboard';
+// import ship from './ship';
 import player from './player';
 import drag from './drag';
 import randomXY from './random';
@@ -25,12 +25,32 @@ const game = () => {
     fleets.classList.add('hide');
   };
 
+  const checkAllSunk = () => {
+    if (playerOne.play.allSunk() === true) {
+      const popUpScreen = document.querySelector('.popUp');
+      const popUpWinner = document.querySelector('.popUpWinner');
+      popUpWinner.textContent = 'YOU WON!';
+      popUpScreen.classList.remove('hide');
+    } else if (computerOne.play.allSunk() === true) {
+      const popUpScreen = document.querySelector('.popUp');
+      const popUpWinner = document.querySelector('.popUpWinner');
+      popUpWinner.textContent = 'YOU LOST!';
+      popUpScreen.classList.remove('hide');
+    }
+  };
+
+  const playAgain = document.querySelector('.playAgain');
+  playAgain.addEventListener('click', () => {
+    location.reload();
+  });
+
   const eventListener = () => {
     for (let i = 0; i < 100; i++) {
       const square = document.getElementById(`square${i + 1}-board2`);
       square.addEventListener('click', () => {
         playerOne.hitComputer(computerOne.play.gameArray[i], i + 1, 2, computerOne.play.gameArray);
         computerOne.hitPlayer(playerOne.play.gameArray);
+        checkAllSunk();
       });
     }
   };

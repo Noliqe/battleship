@@ -5,6 +5,7 @@ const ship = (shipName, shipLength, shipCoords) => {
     coords: shipCoords,
     sunk: false,
     damage: [],
+    color: '',
   };
   const isSunk = () => {
     if (object.length === object.damage.length) {

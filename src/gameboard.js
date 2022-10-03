@@ -46,27 +46,52 @@ const gameBoard = () => {
   const submarine = ship('submarine', 3);
   const patrolBoat = ship('patrol-boat', 2);
 
+  const makeEmpty = () => {
+    carrier.object.coords = '';
+    battleship.object.coords = '';
+    destroyer.object.coords = '';
+    submarine.object.coords = '';
+    patrolBoat.object.coords = '';
+
+    carrier.object.sunk = false;
+    battleship.object.sunk = false;
+    destroyer.object.sunk = false;
+    submarine.object.sunk = false;
+    patrolBoat.object.sunk = false;
+
+    carrier.object.damage = [];
+    battleship.object.damage = [];
+    destroyer.object.damage = [];
+    submarine.object.damage = [];
+    patrolBoat.object.damage = [];
+  };
+
   // push coordinates to each ship
   const shipCoordinates = (shipName, coordinates) => {
     if (shipName === 'carrier') {
       // remove first element from array
       coordinates.shift();
+      carrier.object.color = coordinates.shift();
       carrier.object.coords = coordinates;
     } else if (shipName === 'battleship') {
       // remove first element from array
       coordinates.shift();
+      battleship.object.color = coordinates.shift();
       battleship.object.coords = coordinates;
     } else if (shipName === 'destroyer') {
       // remove first element from array
       coordinates.shift();
+      destroyer.object.color = coordinates.shift();
       destroyer.object.coords = coordinates;
     } else if (shipName === 'submarine') {
       // remove first element from array
       coordinates.shift();
+      submarine.object.color = coordinates.shift();
       submarine.object.coords = coordinates;
     } else if (shipName === 'patrol-boat') {
       // remove first element from array
       coordinates.shift();
+      patrolBoat.object.color = coordinates.shift();
       patrolBoat.object.coords = coordinates;
     }
   };
@@ -80,9 +105,9 @@ const gameBoard = () => {
   };
 
   // if gameArray contains ship, tile style blue
-  const tileColor = (index) => {
+  const tileColor = (index, color) => {
     const square = document.querySelector(`#square${index}-board${1}`);
-    square.style.background = 'blue';
+    square.style.background = color;
   };
 
   // place ship on grid array
@@ -92,7 +117,7 @@ const gameBoard = () => {
       const total = getIndex(index);
       gameArray[total] = carrier.object.name;
       if (num === 1) {
-        tileColor(total + 1);
+        tileColor(total + 1, carrier.object.color);
       }
     }
     for (let i = 0; i < battleship.object.coords.length; i++) {
@@ -100,7 +125,7 @@ const gameBoard = () => {
       const total = getIndex(index);
       gameArray[total] = battleship.object.name;
       if (num === 1) {
-        tileColor(total + 1);
+        tileColor(total + 1, battleship.object.color);
       }
     }
     for (let i = 0; i < destroyer.object.coords.length; i++) {
@@ -108,7 +133,7 @@ const gameBoard = () => {
       const total = getIndex(index);
       gameArray[total] = destroyer.object.name;
       if (num === 1) {
-        tileColor(total + 1);
+        tileColor(total + 1, destroyer.object.color);
       }
     }
     for (let i = 0; i < submarine.object.coords.length; i++) {
@@ -116,7 +141,7 @@ const gameBoard = () => {
       const total = getIndex(index);
       gameArray[total] = submarine.object.name;
       if (num === 1) {
-        tileColor(total + 1);
+        tileColor(total + 1, submarine.object.color);
       }
     }
     for (let i = 0; i < patrolBoat.object.coords.length; i++) {
@@ -124,7 +149,7 @@ const gameBoard = () => {
       const total = getIndex(index);
       gameArray[total] = patrolBoat.object.name;
       if (num === 1) {
-        tileColor(total + 1);
+        tileColor(total + 1, patrolBoat.object.color);
       }
     }
   };
@@ -138,8 +163,9 @@ const gameBoard = () => {
     const e = patrolBoat.object.sunk;
     if (a === true && b === true && c === true && d === true && e === true) {
       // eslint-disable-next-line no-unused-vars
-      console.log('game over');
+      return true;
     }
+    return false;
   };
 
   // when receiving attack, check wether hit or not
@@ -165,7 +191,7 @@ const gameBoard = () => {
     } else if (coords === 'patrol-boat') {
       patrolBoat.hit(z);
       tile.style.background = 'yellow';
-      a[z] = 'O';
+      enemyArray[z] = 'O';
     } else {
       enemyArray[z] = ('miss');
       tile.style.background = 'brown';
@@ -180,6 +206,13 @@ const gameBoard = () => {
     receiveAttack,
     allSunk,
     createBoard,
+    carrier,
+    battleship,
+    submarine,
+    destroyer,
+    patrolBoat,
+    getIndex,
+    makeEmpty,
   };
 };
 
