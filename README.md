@@ -6,3 +6,8 @@ This project is part of <a href='https://www.theodinproject.com/lessons/node-pat
 
 This is my first using Jest for my testing. I've learned that I should test first rather than test afterwards.
 
+Functions that need to be added:
+
+- make random placement more random
+- make empty spaces around ships so there will be no ships next to each other
+- add ships and hit icons
