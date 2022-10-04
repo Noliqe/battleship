@@ -46,26 +46,6 @@ const gameBoard = () => {
   const submarine = ship('submarine', 3);
   const patrolBoat = ship('patrol-boat', 2);
 
-  const makeEmpty = () => {
-    carrier.object.coords = '';
-    battleship.object.coords = '';
-    destroyer.object.coords = '';
-    submarine.object.coords = '';
-    patrolBoat.object.coords = '';
-
-    carrier.object.sunk = false;
-    battleship.object.sunk = false;
-    destroyer.object.sunk = false;
-    submarine.object.sunk = false;
-    patrolBoat.object.sunk = false;
-
-    carrier.object.damage = [];
-    battleship.object.damage = [];
-    destroyer.object.damage = [];
-    submarine.object.damage = [];
-    patrolBoat.object.damage = [];
-  };
-
   // push coordinates to each ship
   const shipCoordinates = (shipName, coordinates) => {
     if (shipName === 'carrier') {
@@ -174,23 +154,28 @@ const gameBoard = () => {
     const z = num - 1;
     if (coords === 'carrier') {
       carrier.hit(z);
-      tile.style.background = 'yellow';
+      tile.style.background = 'black';
+      tile.textContent = 'X';
       enemyArray[z] = 'O';
     } else if (coords === 'battleship') {
       battleship.hit(z);
-      tile.style.background = 'yellow';
+      tile.style.background = 'black';
+      tile.textContent = 'X';
       enemyArray[z] = 'O';
     } else if (coords === 'destroyer') {
       destroyer.hit(z);
-      tile.style.background = 'yellow';
+      tile.style.background = 'black';
+      tile.textContent = 'X';
       enemyArray[z] = 'O';
     } else if (coords === 'submarine') {
       submarine.hit(z);
-      tile.style.background = 'yellow';
+      tile.style.background = 'black';
+      tile.textContent = 'X';
       enemyArray[z] = 'O';
     } else if (coords === 'patrol-boat') {
       patrolBoat.hit(z);
-      tile.style.background = 'yellow';
+      tile.style.background = 'black';
+      tile.textContent = 'X';
       enemyArray[z] = 'O';
     } else {
       enemyArray[z] = ('miss');
@@ -212,7 +197,6 @@ const gameBoard = () => {
     destroyer,
     patrolBoat,
     getIndex,
-    makeEmpty,
   };
 };
 

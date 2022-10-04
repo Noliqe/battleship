@@ -6,4 +6,5 @@ import './style.css';
 import game from './game';
 // import drag from './drag';
 
+// eslint-disable-next-line no-unused-vars
 const newGame = game();

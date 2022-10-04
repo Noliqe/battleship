@@ -25,6 +25,7 @@ const game = () => {
     fleets.classList.add('hide');
   };
 
+  // if all ships are sunk, show popUp
   const checkAllSunk = () => {
     if (playerOne.play.allSunk() === true) {
       const popUpScreen = document.querySelector('.popUp');
@@ -39,11 +40,13 @@ const game = () => {
     }
   };
 
+  // if game over, reload
   const playAgain = document.querySelector('.playAgain');
   playAgain.addEventListener('click', () => {
     location.reload();
   });
 
+  // when player attacks, computer will also attack
   const eventListener = () => {
     for (let i = 0; i < 100; i++) {
       const square = document.getElementById(`square${i + 1}-board2`);
@@ -75,6 +78,7 @@ const game = () => {
     autoPlace.getData(3, 'destroyer');
     autoPlace.getData(3, 'submarine');
     autoPlace.getData(2, 'patrol-boat');
+
     // push coordinates to each ship
     computerOne.play.shipCoordinates(autoPlace.xyArray[0][0], autoPlace.xyArray[0]);
     computerOne.play.shipCoordinates(autoPlace.xyArray[1][0], autoPlace.xyArray[1]);

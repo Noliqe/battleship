@@ -4,6 +4,7 @@ import gameBoard from './gameboard';
 const player = () => {
   const play = gameBoard();
 
+  // make a computerArray which computer can pick from
   const computerArray = [];
   for (let i = 0; i < 100; i++) {
     computerArray.push(i);

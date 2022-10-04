@@ -21,7 +21,8 @@ body {
     width: 100vw;
     height: 100px;
     background-color: #8d9db6;
-    font-size: 40px;
+    font-size: 50px;
+    font-weight: 900;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -134,6 +135,14 @@ body {
 
 .drag-over {
     border: dashed 3px black;
+}
+
+.squares {
+    font-size: 30px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* ships */
